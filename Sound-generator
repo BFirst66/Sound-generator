@@ -1,0 +1,26 @@
+echo "# Sound-generator" >> README.md
+git init
+git add sound_generator.py
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/BFirst66/Sound-generator.git
+git push -u origin main
+import numpy as np
+import sounddevice as sd
+
+def generate_sound(duration, frequency, sample_rate):
+    samples = np.arange(int(duration * sample_rate))
+    waveform = np.sin(2.0 * np.pi * frequency * samples / sample_rate)
+    return waveform
+
+def play_sound(sound, sample_rate):
+    sd.play(sound, sample_rate)
+
+if __name__ == '__main__':
+    duration = 5  # seconds
+    frequency = 440  # Hz
+    sample_rate = 44100  # samples per second
+
+    sound = generate_sound(duration, frequency, sample_rate)
+    play_sound(sound, sample_rate)
